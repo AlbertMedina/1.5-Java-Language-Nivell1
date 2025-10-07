@@ -30,7 +30,7 @@ public class FileUtils {
                         if (showFullTree) {
                             sb.append("\n").append(getDirectoryContentAlphabetically(f, true, depth + 1));
                         } else {
-                            sb.append("\n").append("  - ").append(f.getName());
+                            sb.append("\n").append("  ".repeat(depth + 1)).append("- ").append(f.getName()).append(" (").append(f.isDirectory() ? "D" : "F").append(")");
                         }
                     }
                 }
