@@ -1,36 +1,50 @@
 package level1;
 
-import java.io.File;
+import java.io.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class FileUtils {
 
+    private static final String DIRECTORY_CONTENT_FILE_PATH = "resources/directory-content.txt";
+
     public FileUtils() {
     }
 
-    public static void printDirectoryContentAlphabetically(String path, boolean showFullTree) {
+    public static void saveDirectoryContentAlphabetically(String path, boolean showFullTree) {
         File file = new File(path);
-        printDirectoryContentAlphabetically(file, showFullTree, 0);
+        String directoryContent = getDirectoryContentAlphabetically(file, showFullTree, 0);
+        saveToTxt(directoryContent, DIRECTORY_CONTENT_FILE_PATH);
     }
 
-    private static void printDirectoryContentAlphabetically(File file, boolean showFullTree, int depth) {
+    private static String getDirectoryContentAlphabetically(File file, boolean showFullTree, int depth) {
         if (file.exists()) {
-            System.out.println("  ".repeat(depth) + "- " + file.getName() + " (" + (file.isDirectory() ? "D" : "F") + ")");
+            StringBuilder sb = new StringBuilder();
+            sb.append("  ".repeat(depth)).append("- ").append(file.getName()).append(" (").append(file.isDirectory() ? "D" : "F").append(")");
             if (file.isDirectory()) {
                 File[] filesArr = file.listFiles();
                 if (filesArr != null) {
                     List<File> filesList = Stream.of(filesArr).sorted(Comparator.comparing(f -> f.getName().toLowerCase())).toList();
                     for (File f : filesList) {
                         if (showFullTree) {
-                            printDirectoryContentAlphabetically(f, true, depth + 1);
+                            sb.append("\n").append(getDirectoryContentAlphabetically(f, true, depth + 1));
                         } else {
-                            System.out.println("  - " + f.getName());
+                            sb.append("\n").append("  - ").append(f.getName());
                         }
                     }
                 }
             }
+            return sb.toString();
+        }
+        return "";
+    }
+
+    private static void saveToTxt(String directoryContent, String path) {
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false)))) {
+            pw.println(directoryContent);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
