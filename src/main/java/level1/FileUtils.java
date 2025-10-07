@@ -23,6 +23,23 @@ public class FileUtils {
         return readFromTxt(DIRECTORY_CONTENT_FILE_PATH);
     }
 
+    public static void serializeObject(Object obj, String path) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path))) {
+            objectOutputStream.writeObject(obj);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static Object deserializeObject(String path) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(path))) {
+            return objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     private static String getDirectoryContentAlphabetically(File file, boolean showFullTree, int depth) {
         if (file.exists()) {
             StringBuilder sb = new StringBuilder();
