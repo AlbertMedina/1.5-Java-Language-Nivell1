@@ -1,6 +1,6 @@
 package level2;
 
-import level1.FileUtils;
+import Utils.FileUtils;
 
 import java.io.*;
 import java.util.Properties;
@@ -14,7 +14,7 @@ public class Main {
         Properties properties = new Properties();
 
         try (FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE_PATH)) {
-            
+
             properties.load(fileInputStream);
 
             // getting properties
