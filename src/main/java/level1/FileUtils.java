@@ -19,6 +19,10 @@ public class FileUtils {
         saveToTxt(directoryContent, DIRECTORY_CONTENT_FILE_PATH);
     }
 
+    public static String getSavedDirectoryContent() {
+        return readFromTxt(DIRECTORY_CONTENT_FILE_PATH);
+    }
+
     private static String getDirectoryContentAlphabetically(File file, boolean showFullTree, int depth) {
         if (file.exists()) {
             StringBuilder sb = new StringBuilder();
@@ -47,5 +51,19 @@ public class FileUtils {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private static String readFromTxt(String path) {
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = br.readLine();
+            while (line != null) {
+                sb.append(line).append("\n");
+                line = br.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return sb.toString();
     }
 }
