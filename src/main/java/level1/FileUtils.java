@@ -8,19 +8,38 @@ import java.util.stream.Stream;
 
 public class FileUtils {
 
-    private static final String DIRECTORY_CONTENT_FILE_PATH = "resources/directory-content.txt";
 
     public FileUtils() {
     }
 
-    public static void saveDirectoryContentAlphabetically(String path, boolean showFullTree) {
+    public static String getDirectoryContentAlphabetically(String path, boolean includeFullTree) {
         File file = new File(path);
-        String directoryContent = getDirectoryContentAlphabetically(file, showFullTree, 0);
-        saveToTxt(directoryContent, DIRECTORY_CONTENT_FILE_PATH);
+        return includeFullTree ? getDirectoryContentTreeAlphabetically(file, 0) : getDirectoryContentAlphabetically(file);
     }
 
-    public static String getSavedDirectoryContent() {
-        return readFromTxt(DIRECTORY_CONTENT_FILE_PATH);
+    public static void saveToTxt(String directoryContent, String path) {
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false)))) {
+            pw.println(directoryContent);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static String readFromTxt(String path) {
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = br.readLine();
+            while (line != null) {
+                sb.append(line);
+                line = br.readLine();
+                if (line != null) {
+                    sb.append("\n");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return sb.toString();
     }
 
     public static void serializeObject(Object obj, String path) {
@@ -40,20 +59,16 @@ public class FileUtils {
         }
     }
 
-    private static String getDirectoryContentAlphabetically(File file, boolean showFullTree, int depth) {
+    private static String getDirectoryContentAlphabetically(File file) {
         if (file.exists()) {
             StringBuilder sb = new StringBuilder();
-            sb.append("  ".repeat(depth)).append("- ").append(file.getName()).append(" (").append(file.isDirectory() ? "D" : "F").append(") - Last modification: ").append(new Date(file.lastModified()));
+            sb.append("- ").append(file.getName()).append(" (").append(file.isDirectory() ? "D" : "F").append(") - Last modification: ").append(new Date(file.lastModified()));
             if (file.isDirectory()) {
                 File[] filesArr = file.listFiles();
                 if (filesArr != null) {
                     List<File> filesList = Stream.of(filesArr).sorted(Comparator.comparing(f -> f.getName().toLowerCase())).toList();
                     for (File f : filesList) {
-                        if (showFullTree) {
-                            sb.append("\n").append(getDirectoryContentAlphabetically(f, true, depth + 1));
-                        } else {
-                            sb.append("\n").append("  ".repeat(depth + 1)).append("- ").append(f.getName()).append(" (").append(f.isDirectory() ? "D" : "F").append(")- Last modification: ").append(new Date(f.lastModified()));
-                        }
+                        sb.append("\n  - ").append(f.getName()).append(" (").append(f.isDirectory() ? "D" : "F").append(") - Last modification: ").append(new Date(f.lastModified()));
                     }
                 }
             }
@@ -62,28 +77,21 @@ public class FileUtils {
         return "";
     }
 
-    private static void saveToTxt(String directoryContent, String path) {
-        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false)))) {
-            pw.println(directoryContent);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static String readFromTxt(String path) {
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line = br.readLine();
-            while (line != null) {
-                sb.append(line);
-                line = br.readLine();
-                if (line != null) {
-                    sb.append("\n");
+    private static String getDirectoryContentTreeAlphabetically(File file, int depth) {
+        if (file.exists()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("  ".repeat(depth)).append("- ").append(file.getName()).append(" (").append(file.isDirectory() ? "D" : "F").append(") - Last modification: ").append(new Date(file.lastModified()));
+            if (file.isDirectory()) {
+                File[] filesArr = file.listFiles();
+                if (filesArr != null) {
+                    List<File> filesList = Stream.of(filesArr).sorted(Comparator.comparing(f -> f.getName().toLowerCase())).toList();
+                    for (File f : filesList) {
+                        sb.append("\n").append(getDirectoryContentTreeAlphabetically(f, depth + 1));
+                    }
                 }
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            return sb.toString();
         }
-        return sb.toString();
+        return "";
     }
 }
