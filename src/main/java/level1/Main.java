@@ -7,8 +7,8 @@ import java.io.File;
 public class Main {
 
     private static final String DIRECTORY_PATH = "src" + File.separator + "main";
-    private static final String DIRECTORY_CONTENT_TREE_FILE_PATH = "resources/directory-content.txt";
-    private static final String SERIALIZED_OBJECT_PATH = "resources/serialized-object.txt";
+    private static final String DIRECTORY_CONTENT_TREE_FILE_PATH = "resources" + File.separator + "directory-content.txt";
+    private static final String SERIALIZED_OBJECT_PATH = "resources" + File.separator + "serialized-object.txt";
 
     public static void main(String[] args) {
 
