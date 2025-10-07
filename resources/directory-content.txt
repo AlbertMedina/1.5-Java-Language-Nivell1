@@ -1,7 +1,10 @@
 - main (D) - Last modification: Tue Oct 07 15:36:09 CEST 2025
-  - java (D) - Last modification: Tue Oct 07 15:36:09 CEST 2025
-    - level1 (D) - Last modification: Tue Oct 07 17:59:45 CEST 2025
-      - FileUtils.java (F) - Last modification: Tue Oct 07 17:59:45 CEST 2025
-      - Main.java (F) - Last modification: Tue Oct 07 17:58:43 CEST 2025
+  - java (D) - Last modification: Tue Oct 07 21:02:39 CEST 2025
+    - level1 (D) - Last modification: Tue Oct 07 18:18:06 CEST 2025
+      - FileUtils.java (F) - Last modification: Tue Oct 07 18:18:06 CEST 2025
+      - Main.java (F) - Last modification: Tue Oct 07 18:18:06 CEST 2025
       - MySerializableObject.java (F) - Last modification: Tue Oct 07 13:09:14 CEST 2025
-  - resources (D) - Last modification: Tue Oct 07 09:38:46 CEST 2025
+    - level2 (D) - Last modification: Tue Oct 07 21:45:23 CEST 2025
+      - Main.java (F) - Last modification: Tue Oct 07 21:45:23 CEST 2025
+  - resources (D) - Last modification: Tue Oct 07 21:44:31 CEST 2025
+    - config.properties (F) - Last modification: Tue Oct 07 21:44:31 CEST 2025
