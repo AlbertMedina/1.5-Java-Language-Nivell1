@@ -1,13 +1,12 @@
 package level3;
 
+import Utils.EncryptionUtils;
 import Utils.FileUtils;
 
 import javax.crypto.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Properties;
 
@@ -36,7 +35,7 @@ public class Main {
 
             System.out.println();
 
-            byte[] encryptedText = encrypt(text, password);
+            byte[] encryptedText = EncryptionUtils.encrypt(text, password);
             System.out.println("Crypted text:");
             System.out.println(Base64.getEncoder().encodeToString(encryptedText));
 
@@ -44,7 +43,7 @@ public class Main {
 
             System.out.println();
 
-            String decryptedText = decrypt(encryptedText, password);
+            String decryptedText = EncryptionUtils.decrypt(encryptedText, password);
             System.out.println("Decrypted text:");
             System.out.println(decryptedText);
 
@@ -53,16 +52,5 @@ public class Main {
         }
     }
 
-    private static byte[] encrypt(String text, SecretKey password) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, password);
-        return cipher.doFinal(text.getBytes());
-    }
 
-    private static String decrypt(byte[] encryptedText, SecretKey password) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, password);
-        byte[] decryptedText = cipher.doFinal(encryptedText);
-        return new String(decryptedText);
-    }
 }
