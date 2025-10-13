@@ -4,13 +4,13 @@ import Utils.FileUtils;
 
 import java.io.File;
 
-public class DirectoryService {
+public class DirectoryDemo {
 
     private static final String DIRECTORY_PATH = "src" + File.separator + "main";
     private static final String DIRECTORY_CONTENT_TREE_FILE_PATH = "resources" + File.separator + "directory-content.txt";
     private static final String SERIALIZED_OBJECT_PATH = "resources" + File.separator + "serialized-object.txt";
 
-    public DirectoryService() {
+    public DirectoryDemo() {
     }
 
     public void start() {

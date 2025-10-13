@@ -12,11 +12,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Properties;
 
-public class EncryptionService {
+public class EncryptionDemo {
 
     private static final String PROPERTIES_FILE_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "config.properties";
 
-    public EncryptionService() {
+    public EncryptionDemo() {
     }
 
     public void start() {
