@@ -11,9 +11,6 @@ public class PropertiesDemo {
 
     private static final String PROPERTIES_FILE_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "config.properties";
 
-    public PropertiesDemo() {
-    }
-
     public void start() {
         try {
             // getting properties

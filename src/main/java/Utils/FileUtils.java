@@ -8,10 +8,6 @@ import java.util.stream.Stream;
 
 public class FileUtils {
 
-
-    public FileUtils() {
-    }
-
     public static String getDirectoryContentAlphabetically(String path, boolean includeFullTree) {
         File file = new File(path);
         return includeFullTree ? getDirectoryContentTreeAlphabetically(file, 0) : getDirectoryContentAlphabetically(file);

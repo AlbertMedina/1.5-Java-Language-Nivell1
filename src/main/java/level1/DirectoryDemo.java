@@ -10,9 +10,6 @@ public class DirectoryDemo {
     private static final String DIRECTORY_CONTENT_TREE_FILE_PATH = "resources" + File.separator + "directory-content.txt";
     private static final String SERIALIZED_OBJECT_PATH = "resources" + File.separator + "serialized-object.txt";
 
-    public DirectoryDemo() {
-    }
-
     public void start() {
         // printing directory content alphabetically
         System.out.println(FileUtils.getDirectoryContentAlphabetically(DIRECTORY_PATH, false));

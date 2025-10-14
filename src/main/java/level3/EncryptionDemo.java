@@ -16,9 +16,6 @@ public class EncryptionDemo {
 
     private static final String PROPERTIES_FILE_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "config.properties";
 
-    public EncryptionDemo() {
-    }
-
     public void start() {
         try {
             Properties properties = loadProperties(PROPERTIES_FILE_PATH);
